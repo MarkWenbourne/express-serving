@@ -1,0 +1,8 @@
+{
+  "name": "express-serving",
+  "author": "Mark",
+  "dependencies": {
+    "express": "^5.1.0",
+    "figlet": "^1.9.3"
+  }
+}
