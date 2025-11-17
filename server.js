@@ -9,6 +9,8 @@ app.use(function (req, res, next) {
     next()
 })
 
+app.use(express.static("static/"))
+
 /*
  * GET /
  */
@@ -22,13 +24,26 @@ app.get("/people", function (req, res, next) { //The "/people" acts as an "if" s
     res.status(200).sendFile(__dirname + "/static/people.html")
 })
 
+// This is a BAD way of doing this
+var availablePeople = [
+    "luke",
+    "leia",
+    "rey",
+    "finn",
+    "r2d2"
+]
+
 app.get("/people/:person", function (req, res, next) {
     console.log("req.params:", req.params)
     var person = req.params.person
+    if (availablePeople.indexOf(person) !== -1) {
     res.status(200).sendFile(__dirname + "/static/people/" + person + ".html")
+    } else {
+        next()
+    }
 })
 
-// Make the following LAST
+// Make *this* LAST
 app.get("*splat", function (req, res, next) {
     res.status(404).sendFile(__dirname + "/static/404.html")
 })
